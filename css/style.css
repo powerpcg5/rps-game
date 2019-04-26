@@ -1,0 +1,86 @@
+ /****************************************************************************
+  * rps-game/css/style.css
+  * CSS stylesheet for Rock-paper-scissors game
+  *
+  * 0010 Friday, 7 Nisan 5779 (12 April 2019) [EDT] {17998}
+  *
+  * University of Richmond Coding Boot Camp run by Trilogy Education Services
+  * Austin Kim
+  *
+  * Modified:
+  *   2020 Saturday, 15 Nisan 5779 (20 April 2019) [EDT] {18006}
+  *   2316 Wednesday, 19 Nisan 5779 (24 April 2019) [EDT] {18010}
+  *   0031 Thursday, 20 Nisan 5779 (25 April 2019) [EDT] {18011}
+  ****************************************************************************/
+
+ /* Body */
+body {
+  background-color: #fff7e9;
+  background-image: url('../images/background.jpeg');
+  background-position: top;
+  background-repeat: repeat-y;
+/* Sticky footer */
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column}
+
+ /* Nav element */
+.nav-wrapper {
+  left: 5%;
+  width: 90%}
+
+ /* Main */
+main {
+  margin-top: 10px;
+ /* Sticky footer */
+  flex: 1 0 auto}
+
+ /* Container */
+.container {
+  width: 80%}
+
+ /* Rows */
+div.row {
+  margin-bottom: 8px}
+
+ /* Player names */
+#p1name, #p2name {
+  font-size: 200%}
+
+ /* Headings */
+.heading {
+  font-style: italic}
+
+ /* Dynamic elements */
+#p1score, #p2score, #p1throw, #p2throw, #p1status, #p2status {
+  font-size: 200%}
+
+#p1status, #p2status {
+  font-style: italic}
+
+ /* SEND button */
+a#send {
+  top: 20px}
+
+ /* Chats */
+div.chat {
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: white}
+
+div.chat p {
+  margin-top: 0px;
+  margin-bottom: 0px}
+
+ /* Footer */
+
+footer.page-footer {
+  padding-top: 0px}
+
+footer .container {
+  width: 90%}
+
+.css-logo {
+  position: relative;
+  bottom: 7px}
