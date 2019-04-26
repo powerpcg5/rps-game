@@ -1,0 +1,226 @@
+<!--************************************************************************
+    * rps-game/index.html
+    * Rock-paper-scissors game using Firebase
+    *
+    * 1839 Monday, 3 Nisan 5779 (8 April 2019) [EDT] {17994}
+    *
+    * University of Richmond Coding Boot Camp run by Trilogy Education Services
+    * Austin Kim
+    *
+    * Modified:
+    *   2358 Thursday, 6 Nisan 5779 (11 April 2019) [EDT] {17997}
+    *   2209 Saturday, 15 Nisan 5779 (20 April 2019) [EDT] {18006}
+    *   0336 Sunday, 16 Nisan 5779 (21 April 2019) [EDT] {18007}
+    ************************************************************************-->
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' lang='en'>
+  <head>
+    <meta charset='utf-8'/>
+    <meta name='viewport'
+      content='width=device-width, initial-scale=1, shrink-to-fit=no'/>
+    <!--Materialize CSS-->
+    <link rel='stylesheet'
+      href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'
+      integrity='sha384-5KZdSYqynSzIjQGS2M1O3HW6HVDBjfNx0v5Y2eQuE3vvQ9NTiiPK9/GWc0yYCrgw'
+      crossorigin='anonymous'/>
+    <!--CSS stylesheet-->
+    <link rel='stylesheet' type='text/css' href='css/style.css'/>
+    <title>Rock-paper-scissors Game</title>
+    <!--IMPORT SCRIPTS-->
+    <!--Google Firebase App (the core Firebase SDK) must be listed first-->
+    <script defer
+      src='https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js'></script>
+    <!--Google Firebase Realtime Database-->
+    <script defer
+      src='https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js'>
+      </script>
+    <!--jQuery (full build required for $.ajax)-->
+    <script defer src='https://code.jquery.com/jquery-3.3.1.min.js'
+      integrity='sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT'
+      crossorigin='anonymous'></script>
+    <!--Materialize-->
+    <script defer
+      src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'
+      integrity='sha384-ZOED+d9HxogEQwD+jFvux96iGQR9TxfJO+mPF2ZS0TuKH6eWrmvPsDpO6I0OWdiX'
+      crossorigin='anonymous'></script>
+    <!--Game app-->
+    <script defer src='javascript/app.js'></script>
+  </head>
+  <body>
+    <!--Header-->
+    <header>
+      <!--Materialize navigation bar-->
+      <nav>
+        <div class='nav-wrapper'>
+          <a href='#' class='brand-logo left'>Rock-paper-scissors Game</a>
+          <ul id='nav-mobile' class='right'>
+            <li>
+              <a class='waves-effect waves-light btn modal-trigger'
+                href='#resetModal' id='resetAll'>Reset All</a>
+            </li>
+            <li>
+              <a class='waves-effect waves-light btn modal-trigger'
+                href='#newGameModal' id='newGame'>New Game</a>
+            </li>
+            <li>
+              <a class='waves-effect waves-light btn modal-trigger'
+                href='#instructionsModal' id='instructions'>Instructions</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!--Main-->
+    <main>
+      <!--Gameboard-->
+      <div class='container'>
+        <div class='row'>
+          <div class='col s6 center-align' id='p1name'>Player 1</div>
+          <div class='col s6 center-align' id='p2name'>Player 2</div>
+        </div>
+        <div class='row heading'>
+          <div class='col s12 center-align'>Score</div>
+        </div>
+        <div class='row'>
+          <div class='col s6 center-align' id='p1score'>-</div>
+          <div class='col s6 center-align' id='p2score'>-</div>
+        </div>
+        <hr/>
+        <div class='row'>
+          <div class='col s6 center-align' id='p1throw'>-</div>
+          <div class='col s6 center-align' id='p2throw'>-</div>
+        </div>
+        <div class='row'>
+          <div class='col s2 left-align'>
+            <a class='waves-effect waves-light btn' id='rock'>Rock</a>
+          </div>
+          <div class='col s2 left-align'>
+            <a class='waves-effect waves-light btn' id='paper'>Paper</a>
+          </div>
+          <div class='col s2 center-align'>
+            <a class='waves-effect waves-light btn' id='scissors'>Scissors</a>
+          </div>
+          <div class='col s6'></div>
+        </div>
+        <div class='row'>
+          <div class='col s6 center-align' id='p1status'>-</div>
+          <div class='col s6 center-align' id='p2status'>-</div>
+        </div>
+      </div>
+      <!--Chats-->
+      <div class='container'>
+        <div class='row heading'>
+          <div class='col s12 center-align'>Chat</div>
+        </div>
+        <div class='row'>
+          <div class='col s12 chat' id='chats'>-</div>
+        </div>
+      </div>
+      <!--Message-->
+      <div class='container'>
+        <div class='row'>
+          <form class='col s10'>
+            <div class='input-field'>
+              <textarea id='message' class='materialize-textarea'></textarea>
+              <label for='message'>Message</label>
+            </div>
+          </form>
+          <div class='col s2 right-align'>
+            <a class='waves-effect waves-light btn' id='send'>Send</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!--Reset modal-->
+    <div id='resetModal' class='modal'>
+      <div class='modal-content'>
+        <h4>Rock-paper-scissors Game</h4>
+        <div class='row'>
+          <form class='col s12'>
+            <div class='row'>
+              <div class='input-field col s12'>
+                <label for='name'>Player Name:</label>
+                <input placeholder='Your name' id='name' type='text'
+                  class='validate' required minlength='1' maxlength='16'/>
+                <span class='helper-text' data-error=''/>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class='modal-footer'>
+        <a href='#' class='waves-effect waves-green btn-flat'
+          id='resetOK'>OK</a>
+      </div>
+    </div>
+    <!--New game modal-->
+    <div id='newGameModal' class='modal'>
+      <div class='modal-content'>
+        <h4>Rock-paper-scissors Game</h4>
+        <div class='input-field col s12'>
+          <label class='active'>Please select your opponent:</label>
+          <select id='opponent'>
+            <option value='' disabled selected>Select opponent</option>
+          </select>
+        </div>
+      </div>
+      <div class='modal-footer'>
+        <a href='#' class='waves-effect waves-green btn-flat'
+          id='newGameOK'>OK</a>
+      </div>
+    </div>
+    <!--Instructions modal-->
+    <div id='instructionsModal' class='modal'>
+      <div class='modal-content'>
+        <h4>Rock-paper-scissors Game</h4>
+        <p>Click on RESET ALL to reset your player name and all game
+          settings.</p>
+        <p>Click on NEW GAME to select an opponent and begin game play.</p>
+        <p>Please note:  Chats are not secure, and chat contents are accessible
+          to the open Internet.</p>
+      </div>
+      <div class='modal-footer'>
+        <a href='#' class='modal-close waves-effect waves-green
+          btn-flat'>OK</a>
+      </div>
+    </div>
+    <!--Disconnection modal-->
+    <div id='disconnectModal' class='modal'>
+      <div class='modal-content'>
+        <h4>Rock-paper-scissors Game</h4>
+        <p>Opponent has disconnected.</p>
+      </div>
+      <div class='modal-footer'>
+        <a href='#' class='modal-close waves-effect waves-green
+          btn-flat'>OK</a>
+      </div>
+    </div>
+    <!--Footer-->
+    <footer class='page-footer'>
+      <div class='container'>
+        <div class='row valign-wrapper'>
+          <div class='col s8'>
+            <p class='white-text'>Copyright &copy; 2019 Austin Kim under the
+              terms of the <a href='https://opensource.org/licenses/MIT/'>MIT
+              License</a>.<br
+              />Last modified at 0336 Sunday, 16 Nisan 5779 (21 April 2019)
+              [EDT] {18007}.<br
+              />Send errors and broken links to freennix at gmail dot com.</p>
+          </div>
+          <div class='col s4 right-align'>
+            <a href='https://validator.w3.org/check?uri=referer'><img
+              class='tooltipped' data-position='top'
+              data-tooltip='Valid HTML 5!'
+              src='https://www.w3.org/QA/Tools/I_heart_validator_lg.png'
+              alt='Valid HTML 5!'/></a>
+            <a href='https://jigsaw.w3.org/css-validator/check?uri=referer'><img
+              class='tooltipped css-logo' data-position='top'
+              data-tooltip='Valid CSS level 3!'
+              src='https://jigsaw.w3.org/css-validator/images/vcss.png'
+              alt='Valid CSS level 3!'/></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
