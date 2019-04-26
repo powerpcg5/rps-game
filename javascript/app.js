@@ -13,7 +13,7 @@
  //   2145 Monday, 17 Nisan 5779 (22 April 2019) [EDT] {18008}
  //   2320 Wednesday, 19 Nisan 5779 (24 April 2019) [EDT] {18010}
  //   2301 Thursday, 20 Nisan 5779 (25 April 2019) [EDT] {18011}
- //   0223 Friday, 21 Nisan 5779 (26 April 2019) [EDT] {18012}
+ //   0323 Friday, 21 Nisan 5779 (26 April 2019) [EDT] {18012}
  //////////////////////////////////////////////////////////////////////////////
 
  // Global constants
@@ -387,8 +387,10 @@ function attachState2listeners() {
         if (!snapshot.exists()) {
        // We got disconnected, so reattach and reconstruct player's node
        //   (including opponent subnode under player's node)
-          p1connectionRef.set({name: p1name, available: false,
-            rpsArray: rps1array})
+          p1connectionRef.set({name: p1name, available: false})
+          var p1rpsArrayRef =
+            database.ref(`connections/${p1key}/${p2key}/rpsArray`)
+          p1rpsArrayRef.set(rps1array)
           var p1p2messageRef
           for (let i = 0; i !== p1chats.length; ++i) {
             p1p2messageRef = database.ref(`connections/${p1key}/${p2key}` +
@@ -445,8 +447,10 @@ function attachState3listeners() {
         if (!snapshot.exists()) {
        // We got disconnected, so reattach and reconstruct player's node
        //   (including opponent subnode under player's node)
-          p1connectionRef.set({name: p1name, available: false,
-            rpsArray: rps1array})
+          p1connectionRef.set({name: p1name, available: false})
+          var p1rpsArrayRef =
+            database.ref(`connections/${p1key}/${p2key}/rpsArray`)
+          p1rpsArrayRef.set(rps1array)
           var p1p2messageRef
           for (let i = 0; i !== p1chats.length; ++i) {
             p1p2messageRef = database.ref(`connections/${p1key}/${p2key}` +
